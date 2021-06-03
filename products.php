@@ -3,13 +3,13 @@ include("includes/head.php");
 
 
 // * To Retreive All Drinks
-// $all_drinks = Drink::viewDrinks();
-// foreach($all_drinks as $drink) {
+$all_drinks = Drink::viewDrinks();
+foreach($all_drinks as $drink) {
 
 
-//     // ? HTML Code And Substitute Data 
+    // ? HTML Code And Substitute Data
 
-// }
+}
 
 
 
