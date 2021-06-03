@@ -6,6 +6,10 @@
 body{
     font-family: 'Lato',Arial, Helvetica, sans-serif;
 }
+html,body{
+    width:100%;
+    height:100%;
+}
 .flex{
     display:flex;
 }
@@ -126,7 +130,9 @@ body{
     background:transparent;
     transition:background-color .3s, color .3s;    
 }
-
+.order-items.checkbox .item .icon{
+    border-radius: 0;
+}
 .order-items .item:hover .icon,.order-items .item.selected .icon{
     background:green;
     color:white;
@@ -181,3 +187,81 @@ body{
     opacity:1;
 }
 
+
+.product-details{
+    width:100%;
+    display:flex;
+    height:500px;
+}
+
+.product-details .product-image
+{
+    flex:1;
+    height:100%;
+    margin:0 10px;
+}
+
+.product-details .product-info .title{
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+.product-details .product-info .price{
+    font-size:20px;
+    color:green;
+}
+
+.product-details .overview{
+    font-size:18px;
+    margin-top:20px;
+    margin-bottom:40px;
+}
+
+.xbutton{
+    width:100%;
+    padding:20px;
+    color:white;
+    background:green;
+    text-align: center;
+    cursor: pointer;
+}
+
+.xbutton:hover{
+    background:rgb(4, 92, 4);
+
+}
+
+.order-history{
+    width:100%;
+}
+
+.order-history .item{
+    width:100%;
+    height:100px;
+    border:4px solid green;
+    display:flex;
+    justify-content: center;
+    padding:10px;
+    background:white;
+    border-radius:10px;
+    align-items: center;
+    margin-bottom:20px;
+}
+.order-history .item>div{
+    margin:0 20px;
+}
+.order-history .item .order-image{
+    width:70px;
+    height:70px;
+
+}
+.order-history .item .order-image img{
+    object-fit: contain;
+    width:100%;
+}
+
+.auth form input{
+    width:400px;
+    padding:20px;
+    margin-bottom:10px;
+}
