@@ -75,6 +75,8 @@ class User extends Person {
                 ":ordersCount" => $ordersCount,
                 ":location" => $location)
         );
+
+        echo '<script>alert("Account Cretaed")</script>';
     }
 
     /**
