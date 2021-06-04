@@ -10,13 +10,13 @@ foreach (glob("classes/*.php") as $filename) {
 
 if(!isset($_SESSION["User"]))
 {
-    header("Location: signin.php");
-    exit();
+    // header("Location: index.php");
+    // exit();
 }
 else
 {
     $user = unserialize($_SESSION['User']);
-    echo $user->getFirstName().' '.$user->getLastName();
+    $_SESSION['myOrder'] = $myOrder = array();
 }
 
 ?>
