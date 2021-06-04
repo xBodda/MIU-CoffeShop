@@ -4,10 +4,6 @@ class User extends Person {
     private $ordersCount;
     private $location;
 
-    function __construct() {
-
-    }
-
     function __construct($id,$firstName,$lastName,$email,$phoneNumber,$password,$ordersCount,$location) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -19,8 +15,9 @@ class User extends Person {
         $this->location = $location;
 	}
 
-    static function makeOrder() {
-        $order1 = new Order("10","10","10");
+    function makeOrder($myOrder) {
+        $order1 = new Order($this->getId(),"10");
+        $order1->createOrder($myOrder);
     }
 
     function cancelOrder() {
@@ -31,7 +28,7 @@ class User extends Person {
 
     }
 
-    function Login($email,$password) {
+    public static function Login($email,$password) {
         $date = date('Y-m-d H:i:s');
         if (DB::query('SELECT email FROM users WHERE email=:email', array(':email'=>$email)))
         {
@@ -43,12 +40,12 @@ class User extends Person {
 
                 $userData = DB::query('SELECT * FROM users WHERE email=:email', array(':email'=>$email))[0];
 
-                DB::query('INSERT INTO login_tokens VALUES (\'\', :token, :user_id, :date)', array(':token'=>sha1($token), ':user_id'=>$userData['id'],':date'=>$date));
+                DB::query('INSERT INTO login_tokens VALUES (\'\', :token, :user_id, :date)', array(':token'=>sha1($token), ':user_id'=>$userData['user_id'],':date'=>$date));
 
                 setcookie("USR", $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
                 setcookie("USR_", '1', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
 
-                $user = new User($userData['id'],$userData['firstName'],$userData['lastName'],$userData['email'],$userData['phoneNumber'],$userData['password'],$userData['ordersCount'],$userData['location']);
+                $user = new User($userData['user_id'],$userData['firstName'],$userData['lastName'],$userData['email'],$userData['phoneNumber'],$userData['password'],$userData['ordersCount'],$userData['location']);
 
                 $_SESSION["User"] = serialize($user);
             } 
@@ -63,12 +60,12 @@ class User extends Person {
         }
     }
 
-    function Signup($id,$firstName,$lastName,$email,$phoneNumber,$password,$ordersCount,$location) {
+    public static function Signup($firsttName,$lastName,$email,$phoneNumber,$password,$ordersCount,$location) {
 
         // ! Missing Validations 
 
-        DB::query("INSERT INTO users VALUES(\'\',:firstName,:lastName,:email,:phoneNumber,:password,:ordersCount,:location)",
-            array(":firstName" => $firstName,
+        DB::query("INSERT INTO users VALUES(NULL,:firstName,:lastName,:email,:password,:phoneNumber,:ordersCount,:location,0)",
+            array(":firstName" => $firsttName,
                 ":lastName" => $lastName,
                 ":email" => $email,
                 ":phoneNumber" => $phoneNumber,
@@ -76,6 +73,46 @@ class User extends Person {
                 ":ordersCount" => $ordersCount,
                 ":location" => $location)
         );
+    }
+
+    /**
+     * Get the value of ordersCount
+     */ 
+    public function getOrdersCount()
+    {
+        return $this->ordersCount;
+    }
+
+    /**
+     * Set the value of ordersCount
+     *
+     * @return  self
+     */ 
+    public function setOrdersCount($ordersCount)
+    {
+        $this->ordersCount = $ordersCount;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of location
+     */ 
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set the value of location
+     *
+     * @return  self
+     */ 
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
     }
 }
 
