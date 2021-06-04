@@ -9,9 +9,9 @@ class Order {
         $this->paidDate = $paidDate;
     }
 
-    function createOrder($myOrder) {
-        $date = date('Y-m-d H:i:s');
-        DB::query("INSERT INTO orders VALUES(NULL,:userID,:paidDate)",array(":userID"=>Self::getUserID(),":paidDate"=>$date));
+    function createOrder($myOrder,$date) {
+        
+        DB::query("INSERT INTO orders VALUES(NULL,:userID,:paidDate,0)",array(":userID"=>Self::getUserID(),":paidDate"=>$date));
 
         $order_id = DB::query('SELECT orderID FROM orders ORDER BY orderID DESC LIMIT 1')[0]['orderID'];
 
@@ -54,6 +54,12 @@ class Order {
         $this->paidDate = $paidDate;
 
         return $this;
+    }
+
+    public static function viewOrdersSpecficUser($id) 
+    {
+        $orders = DB::query('SELECT * FROM orders WHERE userID=:userID',array(':userID'=>$id));
+        return $orders;
     }
 }
 ?>
