@@ -47,7 +47,7 @@ class Drink {
 
     public static function viewSpecficDrink($id) {
         $drink = DB::query("SELECT * FROM drinks WHERE id=:id",array(":id"=>$id))[0];
-        $drink;
+        return $drink;
     }
 }
 
