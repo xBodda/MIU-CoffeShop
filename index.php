@@ -24,11 +24,11 @@ $allProducts = Drink::viewDrinks();
             <img src="layout/images/logo.jfif" alt="">
         </div>
         <div class="nav flex">
-            <div class="item">Home</div>
+            <a href="index.php"><div class="item">Home</div></a>
             <div class="item">Our Menu</div>
-            <div class="item">Order History</div>
-            <div class="item">Login</div>
-            <div class="item">Sign Up</div>
+            <a href="history.php"><div class="item">Order History</div></a>
+            <a href="signin.php"><div class="item">Login</div></a>
+            <a href="signup.php"><div class="item">Sign Up</div></a>
         </div>
     </div>
     <div id="top-banner" class="flex align-center justify-center">
